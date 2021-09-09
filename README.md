@@ -1,4 +1,4 @@
-# mtn colors
+# spr colors
 
 ## Development
 

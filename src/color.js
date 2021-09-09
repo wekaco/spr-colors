@@ -1,7 +1,7 @@
 import { html, define, property } from 'hybrids';
 
 define({
-  tag: "some-color",
+  tag: "spr-color",
   name: property(""),
   hex: property("ffffff"),
   render: ({ name, hex }) => html`
