@@ -10,7 +10,7 @@ define({
       <span>${name}</span>
     </div>
     <style>
-      div.colored {
+      :host .colored {
         background-color: #${hex};
         line-height: 2em;
       }

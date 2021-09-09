@@ -4,22 +4,23 @@
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width'>
 	<title>spr-colors</title>
-
 	<style>
 		body {
 			font-family: 'Helvetica Neue', Arial, sans-serif;
 			color: #333;
-			font-weight: 300;
+			font-weight: 400;
                         color-adjust: exact;
                         -webkit-print-color-adjust: exact;
 		}
 	</style>
 </head>
 <body>
-  <div class="container">
-	<h1>spr-colors</h1>
-        <div id='main'></div>
-  </div>
+  <main id="app">
+  </main>
   <script src='bundle.js'></script>
+  <script>
+    var app = document.createElement('spr-app');
+    document.querySelector('#app').appendChild(app);
+  </script>
 </body>
 </html>
