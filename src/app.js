@@ -1,6 +1,7 @@
 import { html, define, property } from 'hybrids';
 import './footer.js'
 import './palette.js'
+import './search.js'
 
 import { data } from './data/mtn94.json';
 
@@ -14,7 +15,8 @@ define({
     </header>
     <section>
       <article>
-        <spr-palette colors="${palette.colors}"></spr-pallete>
+        <spr-search palette="${palette}"></spr-search>
+        <!--<spr-palette colors="${palette.colors}"></spr-pallete>-->
       </article>
     </section>
     <hr/>
