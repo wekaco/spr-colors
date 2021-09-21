@@ -38,6 +38,9 @@ define({
       :host {
         margin: var(--spr-md-em);
       }
+      :host > div {
+        display: flex;
+      }
     </style>
   `,
 });
