@@ -7,6 +7,12 @@ define({
   render: ({ colors }) => html`
       ${colors.map(({name, hex}) => html`
         <spr-color name="${name}" hex=${hex}></spr-color>
+        <style>
+        :host {
+          display: flex;
+          flex-direction: row;
+        }
+        </style>
         `)
       }
   `,

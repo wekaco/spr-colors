@@ -12,7 +12,12 @@ define({
     <style>
       :host .colored {
         background-color: #${hex};
-        line-height: 2em;
+        min-height: var(--spr-sm-em);
+        height: var(--spr-lg-em);
+        border: 0.1em solid var(--spr-muted-hex);
+      }
+      :host {
+        width: 100%;
       }
     </style>
   `,

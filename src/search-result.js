@@ -28,10 +28,9 @@ define({
     </spr-palette>
     <style>
       :host {
-        margin: var(--spr-sm-em);
-        padding: var(--spr-md-em);
-        border: 1px solid;
         display: flex;
+        flex-direction: column;
+        width: 100%;
       }
     </style>
   `,
