@@ -1,6 +1,10 @@
 import { html, define, property } from 'hybrids';
 
-import './search-result.js'
+import './image.js';
+import './search-result.js';
+
+import ColorThief from 'colorthief';
+
 
 const regex = /[0-9a-fA-F]{6}/gm;
 
@@ -50,12 +54,36 @@ function onInput(host, event) {
   host.q = q;
 }
 
+function onImage(host, event) {
+  const colorThief = new ColorThief();
+  const file = event.target.files[0];
+    const img = event.srcElement.form.querySelector('img#preview')
+  img.file = file;
+
+  const reader = new FileReader();
+  reader.onload = (
+    function(aImg) {
+      return function(e) {
+        aImg.src = e.target.result;
+        if (aImg.complete) {
+          host.q = colorThief.getPalette(img);
+        } else {
+          aImg.addEventListener('load', function() {
+            host.q = colorThief.getPalette(img);
+          });
+        }
+      };
+  })(img);
+  reader.readAsDataURL(file);
+}
+
 define({
   tag: "spr-search",
   q: property([]),
+  input_src: property(),
   palette: property({ colors: [] }),
   limit: property(3),
-  render: ({ q, palette, limit, available_limits }) => html`
+  render: ({ q, palette, limit, available_limits, input_src }) => html`
     <form>
       <label><input type="text" name="q" oninput="${onInput}"></input>&nbsp;🔍</label>
       <label>
@@ -66,9 +94,18 @@ define({
         </select>
       </label>
     </form>
-    <div>${q.map((hex) => html`
+    <form>
+      <label>
+        <input type="file"
+           id="search_image" name="search_image"
+           accept="image/png, image/jpeg"
+           onchange="${onImage}">
+       </label>
+       <img id="preview" />
+    </form>
+    <div>${q.map((color) => html`
       <spr-search-result
-        hex="${hex}"
+        color="${color}"
         palette="${palette}"
         limit="${limit}"
       ></spr-search-result>
