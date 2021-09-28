@@ -8,31 +8,17 @@ import ColorThief from 'colorthief';
 
 const regex = /[0-9a-fA-F]{6}/gm;
 
-function fibonacci(num){
-  var a = 1, b = 0, temp;
-
-  while (num >= 0){
-    temp = a;
-    a = a + b;
-    b = temp;
-    num--;
-  }
-
-  return b;
-}
+const MAX_INPUT_LIMIT = 13;
+const fibonacci_range = [1,2,3,5,8, MAX_INPUT_LIMIT];
 
 
-function range(total, map=(i)=>i) {
-  let t = [];
-  for (let i=1; total >= i; i++) {
-    t.push(map(i));
-  }
-  return t;
-}
-
-
-function onChange(host, event) {
+function onChangeLimit(host, event) {
   host.limit = event.target.value;
+}
+
+
+function onChangeInputLimit(host, event) {
+  host.input_limit = event.target.value;
 }
 
 
@@ -66,10 +52,10 @@ function onImage(host, event) {
       return function(e) {
         aImg.src = e.target.result;
         if (aImg.complete) {
-          host.q = colorThief.getPalette(img);
+          host.q = colorThief.getPalette(img, MAX_INPUT_LIMIT);
         } else {
           aImg.addEventListener('load', function() {
-            host.q = colorThief.getPalette(img);
+            host.q = colorThief.getPalette(img, MAX_INPUT_LIMIT);
           });
         }
       };
@@ -83,12 +69,13 @@ define({
   input_src: property(),
   palette: property({ colors: [] }),
   limit: property(3),
-  render: ({ q, palette, limit, available_limits, input_src }) => html`
+  input_limit: property(5),
+  render: ({ q, palette, limit, input_limit, input_src }) => html`
     <form>
       <label><input type="text" name="q" oninput="${onInput}"></input>&nbsp;🔍</label>
       <label>
-        <select onchange="${onChange}">
-          ${range(6, fibonacci).map((i) => html`
+        <select onchange="${onChangeLimit}">
+          ${fibonacci_range.map((i) => html`
             <option value="${i}" selected="${i==limit}">${i}</option>
           `)}
         </select>
@@ -101,6 +88,13 @@ define({
            accept="image/png, image/jpeg"
            onchange="${onImage}">
        </label>
+      <label>
+        <select onchange="${onChangeInputLimit}">
+          ${fibonacci_range.map((i) => html`
+            <option value="${i}" selected="${i==input_limit}">${i}</option>
+          `)}
+        </select>
+      </label>
        <img id="preview" />
     </form>
     <div>${q.map((color) => html`
@@ -109,7 +103,7 @@ define({
         palette="${palette}"
         limit="${limit}"
       ></spr-search-result>
-    `)}
+    `).limit(input_limit)}
     </div>
     <style>
       :host {

@@ -5,6 +5,16 @@ import './search.js'
 
 import { data } from './data/mtn94.json';
 
+
+Array.prototype.limit = function(l) {
+  if (this.length > l) {
+    console.log('here')
+    this.splice(l);
+  }
+  return this;
+}
+
+
 define({
   tag: "spr-app",
   palette: property(data),
