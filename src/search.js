@@ -12,11 +12,6 @@ const MAX_INPUT_LIMIT = 13;
 const fibonacci_range = [1,2,3,5,8, MAX_INPUT_LIMIT];
 
 
-function onChangeLimit(host, event) {
-  host.limit = event.target.value;
-}
-
-
 function onChangeInputLimit(host, event) {
   host.input_limit = event.target.value;
 }
@@ -68,26 +63,18 @@ define({
   q: property([]),
   input_src: property(),
   palette: property({ colors: [] }),
-  limit: property(3),
   input_limit: property(5),
   render: ({ q, palette, limit, input_limit, input_src }) => html`
     <form>
-      <label><input type="text" name="q" oninput="${onInput}"></input>&nbsp;🔍</label>
-      <label>
-        <select onchange="${onChangeLimit}">
-          ${fibonacci_range.map((i) => html`
-            <option value="${i}" selected="${i==limit}">${i}</option>
-          `)}
-        </select>
-      </label>
     </form>
     <form>
+      <label><input type="text" name="q" oninput="${onInput}"></input>&nbsp;🔍</label> or
       <label>
         <input type="file"
            id="search_image" name="search_image"
            accept="image/png, image/jpeg"
            onchange="${onImage}">
-       </label>
+      </label>
       <label>
         <select onchange="${onChangeInputLimit}">
           ${fibonacci_range.map((i) => html`
@@ -101,7 +88,6 @@ define({
       <spr-search-result
         color="${color}"
         palette="${palette}"
-        limit="${limit}"
       ></spr-search-result>
     `).limit(input_limit)}
     </div>
