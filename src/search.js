@@ -1,6 +1,5 @@
 import { html, define, property } from 'hybrids';
 
-import './image.js';
 import './search-result.js';
 
 import ColorThief from 'colorthief';
