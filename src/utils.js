@@ -82,9 +82,22 @@ function deltaE(labA, labB){
   return i < 0 ? 0 : Math.sqrt(i);
 }
 
-export function distance(src, dest) {
-  return deltaE(
-    rgb2lab(hex2rgb(src)),
-    rgb2lab(hex2rgb(dest)),
+export function calculate_distance(src, dest) {
+  let src_rgb = src
+  let dest_rgb = dest
+  if (!Array.isArray(src)) {
+    src_rgb = hex2rgb(src) 
+  }
+  if (!Array.isArray(dest)) {
+    dest_rgb = hex2rgb(dest)
+  }
+    
+  const distance = deltaE(
+    rgb2lab(src_rgb),
+    rgb2lab(dest_rgb),
   );
+  return {
+    distance,
+    color: dest_rgb
+  };
 }

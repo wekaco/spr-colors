@@ -5,8 +5,8 @@ define({
   tag: "spr-palette",
   colors: property([]),
   render: ({ colors }) => html`
-      ${colors.map(({name, hex}) => html`
-        <spr-color name="${name}" hex=${hex}></spr-color>
+      ${colors.map(({name, color}) => html`
+        <spr-color name="${name}" color=${JSON.stringify(color)}></spr-color>
         <style>
         :host {
           display: flex;
